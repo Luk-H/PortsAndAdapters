@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using LoanstepCore.Integration;
 using LoanstepCore.Services;
 using LoanstepIntegration;
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 //Integrations
 builder.Services.Add(new ServiceDescriptor(typeof(ICreditReportClient), c => new BisnodeReportClient( "Token"), ServiceLifetime.Transient));
-
+builder.Services.Add(new ServiceDescriptor(typeof(IEmailClient), c => new SMTPEmailClient( "smtp.google.com", 557, "noreply@loanstep.se", "password"), ServiceLifetime.Transient));
 
 builder.Services.AddSingleton<CreditReportService>();
 var app = builder.Build();
